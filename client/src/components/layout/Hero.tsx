@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useNasaApod } from '../../hooks/useNasaApod';
-import { ChevronDown, Sparkles } from 'lucide-react';
+import { ChevronDown, Sparkles, Telescope, Calendar, Clock } from 'lucide-react';
 import LoadingScreen from '../ui/LoadingScreen';
 
 const Hero = () => {
@@ -88,11 +88,35 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.8 }}
-            className="text-xl md:text-2xl text-void-300 max-w-3xl mx-auto leading-relaxed"
+            className="text-xl md:text-2xl text-void-300 max-w-3xl mx-auto leading-relaxed mb-8"
           >
             Journey through space and time. Discover the cosmic events, space missions, 
             and celestial phenomena that shaped our understanding of the universe.
           </motion.p>
+
+          {/* Feature Highlights */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.0 }}
+            className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12"
+          >
+            <div className="glass-card p-6 text-center">
+              <Telescope className="h-8 w-8 text-stellar-400 mx-auto mb-3" />
+              <h3 className="text-lg font-semibold text-white mb-2">Explore Events</h3>
+              <p className="text-void-300 text-sm">Discover cosmic events from any day in history</p>
+            </div>
+            <div className="glass-card p-6 text-center">
+              <Clock className="h-8 w-8 text-nebula-400 mx-auto mb-3" />
+              <h3 className="text-lg font-semibold text-white mb-2">Your Timeline</h3>
+              <p className="text-void-300 text-sm">See space events from your lifetime</p>
+            </div>
+            <div className="glass-card p-6 text-center">
+              <Calendar className="h-8 w-8 text-cosmos-400 mx-auto mb-3" />
+              <h3 className="text-lg font-semibold text-white mb-2">Future Events</h3>
+              <p className="text-void-300 text-sm">Upcoming astronomical phenomena</p>
+            </div>
+          </motion.div>
         </motion.div>
 
         {/* APOD Info */}

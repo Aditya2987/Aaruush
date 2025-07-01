@@ -35,6 +35,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
 /* Custom scrollbar */
@@ -93,59 +94,53 @@ body {
   }
   
   .hero-text {
-    @apply text-6xl md:text-8xl font-display font-bold leading-tight;
+    @apply text-5xl md:text-7xl lg:text-8xl font-display font-bold leading-tight;
     background: linear-gradient(135deg, #ffffff 0%, #a855f7 50%, #22d3ee 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    text-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
   }
   
   .section-title {
-    @apply text-4xl md:text-5xl font-display font-bold text-center mb-16;
+    @apply text-3xl md:text-4xl lg:text-5xl font-display font-bold text-center mb-16;
     background: linear-gradient(135deg, #ffffff 0%, #8b5cf6 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
+  .container {
+    @apply max-w-7xl mx-auto;
+  }
 }
 
-/* Floating particles animation */
-.particles {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
+/* Enhanced animations */
+@keyframes twinkle {
+  '0%, 100%': { opacity: 0.3, transform: 'scale(1)' },
+  '50%': { opacity: 1, transform: 'scale(1.2)' },
 }
 
-.particle {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: #22d3ee;
-  border-radius: 50%;
-  animation: twinkle 3s ease-in-out infinite;
+@keyframes meteor {
+  '0%': { transform: 'translateX(-100px) translateY(-100px)', opacity: 0 },
+  '10%': { opacity: 1 },
+  '90%': { opacity: 1 },
+  '100%': { transform: 'translateX(300px) translateY(300px)', opacity: 0 },
 }
 
-.particle:nth-child(2n) {
-  background: #8b5cf6;
-  animation-delay: 1s;
+@keyframes shimmer {
+  '0%': { transform: 'translateX(-100%)' },
+  '100%': { transform: 'translateX(100%)' },
 }
 
-.particle:nth-child(3n) {
-  background: #ec4899;
-  animation-delay: 2s;
+@keyframes float {
+  '0%, 100%': { transform: 'translateY(0px)' },
+  '50%': { transform: 'translateY(-20px)' },
 }
 
-/* Meteor shower effect */
-.meteor {
-  position: absolute;
-  width: 2px;
-  height: 100px;
-  background: linear-gradient(to bottom, transparent, #22d3ee, transparent);
-  animation: meteor 3s ease-out infinite;
+@keyframes glow {
+  '0%': { box-shadow: '0 0 20px rgba(34, 211, 238, 0.3)' },
+  '100%': { box-shadow: '0 0 40px rgba(34, 211, 238, 0.6)' },
 }
 
 /* Loading states */
@@ -158,10 +153,55 @@ body {
 /* Responsive design improvements */
 @media (max-width: 768px) {
   .hero-text {
-    @apply text-4xl md:text-6xl;
+    @apply text-4xl md:text-5xl;
   }
   
   .section-title {
-    @apply text-3xl md:text-4xl;
+    @apply text-2xl md:text-3xl;
   }
+
+  .container {
+    @apply px-4;
+  }
+}
+
+/* Focus states for accessibility */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #22d3ee;
+  outline-offset: 2px;
+}
+
+/* Smooth transitions for all interactive elements */
+button, a, .glass-button, .glass-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced glass effect */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  border-radius: inherit;
+  z-index: -1;
+}
+
+/* Improved text readability */
+.text-shadow {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Better spacing for content */
+section {
+  @apply py-16 md:py-24;
+}
+
+/* Enhanced button styles */
+.btn-primary {
+  @apply cosmic-border glass-button bg-gradient-to-r from-stellar-500 to-nebula-500 text-white font-semibold;
+}
+
+.btn-secondary {
+  @apply glass-button border-white/30 hover:border-stellar-400;
 }

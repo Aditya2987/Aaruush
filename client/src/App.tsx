@@ -2,6 +2,7 @@ import { useState, Suspense, lazy, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navigation from './components/layout/Navigation';
 import Hero from './components/layout/Hero';
+import Footer from './components/layout/Footer';
 import ParticleField from './components/effects/ParticleField';
 import LoadingScreen from './components/ui/LoadingScreen';
 
@@ -54,7 +55,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden bg-void-950">
       <ParticleField />
       
       <Navigation />
@@ -117,24 +118,7 @@ function App() {
         </motion.div>
       </main>
 
-      {/* Footer */}
-      <footer className="relative z-10 border-t border-white/10 bg-void-950/50 backdrop-blur-xl">
-        <div className="container mx-auto px-4 py-16">
-          <div className="text-center">
-            <h3 className="text-2xl font-display font-bold text-gradient mb-4">
-              Celestial Chronicles
-            </h3>
-            <p className="text-void-300 mb-8 max-w-2xl mx-auto">
-              Journey through space and time. Discover the cosmic events that shaped our understanding of the universe.
-            </p>
-            <div className="flex justify-center space-x-6 text-void-400">
-              <span>© 2025 Celestial Chronicles</span>
-              <span>•</span>
-              <span>Powered by NASA & Supabase</span>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,45 +6,162 @@
 
 :root {
   color-scheme: dark;
+  --cosmic-primary: #8b5cf6;
+  --cosmic-secondary: #ec4899;
+  --cosmic-accent: #22d3ee;
+  --void-deep: #020617;
+  --void-medium: #0f172a;
+  --void-light: #1e293b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background-color: #0a0f1f;
-  color: #8a9dc3;
-  background-image: url('/src/assets/stars-bg.png');
-  background-attachment: fixed;
-  background-size: cover;
+  margin: 0;
+  padding: 0;
+  background: var(--void-deep);
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(34, 211, 238, 0.05) 0%, transparent 50%);
+  color: #e2e8f0;
+  font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-/* Custom Scrollbar */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: rgba(15, 23, 42, 0.5);
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #101a3a;
-  border-radius: 9999px;
-  border: 2px solid transparent;
-  background-clip: content-box;
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #22d3ee;
+  background: linear-gradient(135deg, #a855f7, #f472b6);
 }
 
-.glass-card {
-  background-color: rgba(16, 26, 58, 0.5);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(138, 157, 195, 0.3);
-  border-radius: 1rem; /* 16px */
-  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
+/* Glass morphism components */
+@layer components {
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  }
+  
+  .glass-button {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-6 py-3 font-medium transition-all duration-300;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+  }
+  
+  .glass-button:hover {
+    @apply bg-white/20 border-white/30 transform scale-105;
+    box-shadow: 0 10px 40px rgba(139, 92, 246, 0.3);
+  }
+  
+  .cosmic-border {
+    position: relative;
+  }
+  
+  .cosmic-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    background: linear-gradient(135deg, #8b5cf6, #ec4899, #22d3ee);
+    border-radius: inherit;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    -webkit-mask-composite: xor;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-stellar-400 via-nebula-400 to-cosmos-400 bg-clip-text text-transparent;
+  }
+  
+  .hero-text {
+    @apply text-6xl md:text-8xl font-display font-bold leading-tight;
+    background: linear-gradient(135deg, #ffffff 0%, #a855f7 50%, #22d3ee 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .section-title {
+    @apply text-4xl md:text-5xl font-display font-bold text-center mb-16;
+    background: linear-gradient(135deg, #ffffff 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* Floating particles animation */
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #22d3ee;
+  border-radius: 50%;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.particle:nth-child(2n) {
+  background: #8b5cf6;
+  animation-delay: 1s;
+}
+
+.particle:nth-child(3n) {
+  background: #ec4899;
+  animation-delay: 2s;
+}
+
+/* Meteor shower effect */
+.meteor {
+  position: absolute;
+  width: 2px;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, #22d3ee, transparent);
+  animation: meteor 3s ease-out infinite;
+}
+
+/* Loading states */
+.loading-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Responsive design improvements */
+@media (max-width: 768px) {
+  .hero-text {
+    @apply text-4xl md:text-6xl;
+  }
+  
+  .section-title {
+    @apply text-3xl md:text-4xl;
+  }
 }
